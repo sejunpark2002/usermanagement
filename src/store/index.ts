@@ -1,30 +1,31 @@
 import { configureStore, ThunkAction, Action } from '@reduxjs/toolkit';
 import { useSelector, useDispatch } from 'react-redux';
 import { all } from 'redux-saga/effects';
-import createSagaMiddleware from 'redux-saga';
+// import createSagaMiddleware from 'redux-saga';
+import userReducer from 'redux/user/userReducer';
 
 
-const sagaMiddleware = createSagaMiddleware();
+// const sagaMiddleware = createSagaMiddleware();
 
-function* rootSaga() {
-  yield all([
+// function* rootSaga() {
+//   yield all([
     
-    // Other sagas...
-  ]);
-}
+//     // Other sagas...
+//   ]);
+// }
 
 export const createStore = () =>
   configureStore({
     reducer: {
-     
+      userReducer,
       // Other reducers...
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware({ serializableCheck: false }).concat(sagaMiddleware),
   });
 
 export const store = createStore();
 
-sagaMiddleware.run(rootSaga);
+// sagaMiddleware.run(rootSaga);
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>;
