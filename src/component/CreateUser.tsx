@@ -4,8 +4,9 @@ import { IUser } from '../model'
 import { nanoid } from 'nanoid';
 import { useAppDispatch } from '../store';
 import { createUserAction } from '../redux/user/User';
+import { INewUserModalProps } from 'layout/header/Header';
 
-const CreateUser = () => {
+const CreateUser:React.FC<INewUserModalProps> = ({setNewUSerModal}) => {
 const dispatch = useAppDispatch();
 
 const [userInfo,setUserInfo] = useState<Partial<IUser>> ({
@@ -31,16 +32,26 @@ const createUser =() =>{
  dispatch(createUserAction(newUser))
 }
 
+const validateUserInput =() => {
+  const {name,phone,email} = userInfo;
+  if(!name || !phone ||! email) {
+    return alert('Please Type User Info')
+  }
+  createUser()
+  setNewUSerModal(false)
+}
+
   return (
-    <div>
+    <>
+      <div>Creating a New User</div>
       <div>Name</div>
       <input type="text"  name="name" value={userInfo.name} onChange={changeUserInfo} />
       <div>Phone</div>
       <input type="text" name="phone" value={userInfo.phone} onChange={changeUserInfo} />
       <div>Email</div>
       <input type="text" name="email" value={userInfo.email} onChange={changeUserInfo} />
-      <button onClick={createUser}>Submit</button>
-    </div>
+      <button onClick={validateUserInput}>Submit</button>
+    </>
   )
 }
 

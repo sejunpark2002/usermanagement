@@ -3,7 +3,7 @@ import { IUserState } from "./userReducer.interface";
 import { USER_ACTION } from "const/action";
 import { Reducer } from "@reduxjs/toolkit";
 
-const {CREATE_USER}= USER_ACTION;
+const {CREATE_USER,DELETE_USER,UPDATE_USER}= USER_ACTION;
 
 const INITIAL_STATE: IUserState = {
   userlist: []
@@ -29,6 +29,28 @@ const userReducer: Reducer<IUserState, UserActionTypes> = (
         ]
       }
     }
+  case DELETE_USER: {
+    return {
+      ...state,
+      userlist:state.userlist.filter((user) => user.id !==payload ),
+    }
+  }
+
+  case UPDATE_USER: {
+    return {
+      ...state,
+      userlist: state.userlist.map((user) =>
+        user.id === payload.id
+          ? {
+              ...user,
+              name:payload.name,
+              phone:payload.phone,
+              email:payload.email
+            }
+          : user,
+      ),
+    };
+  }
      
    
       default:
