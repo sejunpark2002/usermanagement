@@ -6,3 +6,17 @@
   display: flex;
   justify-content: space-around;
 }
+
+.App {
+ max-width: 1980px;
+ text-align: center;
+ margin: 0 auto;
+}
+
+.a {
+  color: red;
+}
+
+.b {
+  color: blue;
+}

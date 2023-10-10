@@ -4,9 +4,13 @@ import { IUser } from '../model'
 import { nanoid } from 'nanoid';
 import { useAppDispatch } from '../store';
 import { createUserAction } from '../redux/user/User';
-import { INewUserModalProps } from 'layout/header/Header';
+import 'App.css';
 
-const CreateUser:React.FC<INewUserModalProps> = ({setNewUSerModal}) => {
+export interface ICreateUser {
+  setNewUserModalFunc: () => void;
+}
+
+const CreateUser = ({setNewUserModalFunc}: ICreateUser) => {
 const dispatch = useAppDispatch();
 
 const [userInfo,setUserInfo] = useState<Partial<IUser>> ({
@@ -38,19 +42,22 @@ const validateUserInput =() => {
     return alert('Please Type User Info')
   }
   createUser()
-  setNewUSerModal(false)
+  setNewUserModalFunc()
 }
 
   return (
     <>
-      <div>Creating a New User</div>
-      <div>Name</div>
-      <input type="text"  name="name" value={userInfo.name} onChange={changeUserInfo} />
-      <div>Phone</div>
-      <input type="text" name="phone" value={userInfo.phone} onChange={changeUserInfo} />
-      <div>Email</div>
-      <input type="text" name="email" value={userInfo.email} onChange={changeUserInfo} />
-      <button onClick={validateUserInput}>Submit</button>
+      
+        <div>Creating a New User</div>
+        <div>Name</div>
+        <input type="text"  name="name" value={userInfo.name} onChange={changeUserInfo} />
+        <div>Phone</div>
+        <input type="text" name="phone" value={userInfo.phone} onChange={changeUserInfo} />
+        <div>Email</div>
+        <input type="text" name="email" value={userInfo.email} onChange={changeUserInfo} />
+        <button onClick={validateUserInput}>Submit</button>
+      
+     
     </>
   )
 }

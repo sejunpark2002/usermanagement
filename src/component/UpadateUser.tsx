@@ -3,12 +3,13 @@ import { useState } from 'react'
 import { IUser } from 'model'
 import { updateUserAction } from '../redux/user/User';
 import { useAppDispatch } from 'store';
+import 'App.css';
 
-interface UpdateUserProps {
+interface IUpdateUserProps {
   updateSelectedId: string;
 }
 
-const UpadateUser:React.FC<UpdateUserProps> = ({updateSelectedId}) => {
+const UpadateUser = ({updateSelectedId}: IUpdateUserProps) => {
   const dispatch = useAppDispatch();
   const [userUpdate,setUserUpadate] = useState<Partial<IUser>>({
     name:'',
@@ -46,15 +47,18 @@ const UpadateUser:React.FC<UpdateUserProps> = ({updateSelectedId}) => {
    
 
     <>
-    <div>Update User</div>
-    <div>Name</div>
-    <input type="text" name='name' value={userUpdate.name} onChange={changeUserUpdate} />
-    <div>Phone Number</div>
-    <input type="text" name='phone' value={userUpdate.phone} onChange={changeUserUpdate} />
-    <div>Email</div>
-    <input type="text" name='email' value={userUpdate.email} onChange={changeUserUpdate} />
-    <button onClick={validateUserInput}>Update</button>
     
+      <div>Update User</div>
+      <div>Name</div>
+      <input type="text" name='name' value={userUpdate.name} onChange={changeUserUpdate} />
+      <div>Phone Number</div>
+      <input type="text" name='phone' value={userUpdate.phone} onChange={changeUserUpdate} />
+      <div>Email</div>
+      <input type="text" name='email' value={userUpdate.email} onChange={changeUserUpdate} />
+      <button onClick={validateUserInput}>Update</button>
+    
+    
+   
     </>
   )
 };
