@@ -6,7 +6,8 @@ import { deleteUserAction } from 'redux/user/User';
 
 export interface IUpdateUserModalProps {
   setUpdateUSerModal: (value: boolean) => void;
-  setUpdateSelectedId: (value: string) => void;  // Assuming it's a function that takes a boolean argument
+  setUpdateSelectedId: (value: string) => void;
+  userlist:IUser[];  // Assuming it's a function that takes a boolean argument
 }
 
 export interface IUpdateUserIdProps {
@@ -15,13 +16,25 @@ export interface IUpdateUserIdProps {
 
 
 // React.FC<IUpdateUserModalProps>
-const ShowTodo:React.FC<IUpdateUserModalProps> = ({setUpdateUSerModal,setUpdateSelectedId}) => {
-  const { userlist } = useAppSelector((state) => state.userReducer);
-  const dispatch = useAppDispatch();
+const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId}: IUpdateUserModalProps) => {
+  // const { userlist } = useAppSelector((state) => state.userReducer);
+  // const dispatch = useAppDispatch();
 
-  const deleteUserFunc =(id:string) =>{
-    // const index = userlist.findIndex((arr)=>arr.id === id)
-    dispatch(deleteUserAction(id))
+  // const deleteUserFunc =(id:string) =>{
+  //   // const index = userlist.findIndex((arr)=>arr.id === id)
+  //   dispatch(deleteUserAction(id))
+  // }
+
+  const deleteUser = async (id:string) => {
+    const res: Response = await fetch(`http://localhost:8080/user?id=${id}`, {
+      method:'DELETE',
+      headers: {
+        'Content-Type': 'application/json'
+
+      }
+    })
+    const result = await res.json();
+    console.log(result);
   }
 
 
@@ -51,7 +64,7 @@ const ShowTodo:React.FC<IUpdateUserModalProps> = ({setUpdateUSerModal,setUpdateS
                 <td><span className='text'>{user.email}</span></td>
                 <td>
                   <button onClick={()=>{setUpdateUSerModal(true);setUpdateSelectedId(user.id)}} type="button" className="btn btn-warning">Update</button>
-                  <button onClick={() => deleteUserFunc(user.id)} type="button" className="btn btn-danger">Delete</button>
+                  <button onClick={() => deleteUser(user.id)} type="button" className="btn btn-danger">Delete</button>
                 </td>
                 
               </tr>

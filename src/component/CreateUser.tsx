@@ -25,15 +25,25 @@ const changeUserInfo =(e:React.ChangeEvent<HTMLInputElement>) => {
   setUserInfo({...userInfo,[name]:value })
 }
 
-const createUser =() =>{
+const createUser = async () =>{
 
  const newUser:IUser = {
   id: nanoid(),
   name:userInfo.name as string,
   phone:userInfo.phone as string,
   email:userInfo.email as string
- }
- dispatch(createUserAction(newUser))
+ };
+ const res :Response = await fetch("http://localhost:8080/user",{
+      method:'POST',
+      body: JSON.stringify(newUser),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+    const result = await res.json();
+    console.log(result);
+
+//  dispatch(createUserAction(newUser))
 }
 
 const validateUserInput =() => {

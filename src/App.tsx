@@ -3,11 +3,56 @@ import CreateUser from './component/CreateUser'
 import ShowTodo from 'component/ShowTodo'
 import Header from 'layout/header/Header'
 import UpadateUser from 'component/UpadateUser'
-import { useState } from 'react'
+import { useState,useEffect } from 'react'
 import 'App.css'
+import { IUser } from 'model'
+import { getAllUsersAPI } from 'api/user'
+
 // `import TempComp from 'component/TempComp'`
 
+export interface IResponseType {
+  message: string;
+  statusCode:string;
+}
+
+export interface IResponseTypeWithResult extends IResponseType {
+  result:IUser[]
+}
+
+
 const App = () => {
+
+  const [userlist,setUserList] =  useState <IUser[]>
+([]);
+
+// const getAllUsers = async () => {
+//   console.log('Get All Todo - Frontend')
+//   const result: IResponseTypeWithResult = await getAllUsersAPI();
+//   setUserList(result.result)
+// };
+
+const setUserListFunc = (userlist:IUser[]) => {
+  setUserList(userlist)
+};
+
+
+useEffect(() => {
+  console.log('called');
+  
+  const getAllUsers = async () => {
+    console.log('Get All Todo - Frontend')
+    const result: IResponseTypeWithResult = await getAllUsersAPI();
+    setUserList(result.result);
+  }
+
+  getAllUsers();
+}, []);
+
+console.log('1')
+
+// [] => Component가 Mount 됬을 때 단 한번만 실행
+// [state] => Component가 Mount 됬을 때 한번 실행 + state가 바꼈을 때 실행
+// [state, state]
 
 const [newUserModal, setNewUserModal] = useState(false);
 const [updateUserModal, setUpdateUSerModal] = useState(false);
@@ -22,31 +67,13 @@ const [updateSelectedId, setUpdateSelectedId ] = useState('');
   return (
     <div className="App">
       <Header setNewUserModalFunc={setNewUserModalFunc}/>
-      <ShowTodo setUpdateUSerModal={setUpdateUSerModal} setUpdateSelectedId={setUpdateSelectedId} />
+      <ShowTodo userlist={userlist} setUpdateUSerModal={setUpdateUSerModal} setUpdateSelectedId={setUpdateSelectedId} />
       {newUserModal &&  <CreateUser setNewUserModalFunc={setNewUserModalFunc}  />}
-      {updateUserModal &&  <UpadateUser updateSelectedId={updateSelectedId}/>}
+      {updateUserModal &&  <UpadateUser setUserListFunc={setUserListFunc} updateSelectedId={updateSelectedId}/>}
      
-      <button type="button" onClick={() => setModalToggle(!modalToggle)} className="btn btn-primary" data-bs-toggle={modalToggle} data-bs-target="#exampleModal">
-        Launch demo modal
-      </button>
+     
 
-      <div className="modal fade" id="exampleModal" tabIndex={-1} aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-              <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div className="modal-body">
-              ...
-            </div>
-            <div className="modal-footer">
-              <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="button" className="btn btn-primary">Save changes</button>
-            </div>
-          </div>
-        </div>
-      </div>
+   
 
       {modalToggle && <div>Modal</div>}
       {modalToggle && <div>Modal</div>}
