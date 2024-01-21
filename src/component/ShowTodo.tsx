@@ -4,10 +4,15 @@ import { IUser } from '../model'
 import 'App.css';
 import { deleteUserAction } from 'redux/user/User';
 import { useState } from 'react';
+import { deleteUserAPI } from 'api/user';
+import deleteUser from './DeleteUser';
+import NewUser from './NewUser';
+import { useNavigate, Link } from 'react-router-dom'
 
 export interface IUpdateUserModalProps {
   setUpdateUSerModal: (value: boolean) => void;
   setUpdateSelectedId: (value: string) => void;
+  setNewUserModalFunc: () => void;
   userlist:IUser[];  // Assuming it's a function that takes a boolean argument
 }
 
@@ -17,10 +22,14 @@ export interface IUpdateUserIdProps {
 
 
 // React.FC<IUpdateUserModalProps>
-const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId}: IUpdateUserModalProps) => {
+const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId,setNewUserModalFunc}: IUpdateUserModalProps) => {
 
-  const [firstIndex,setFirstIndex] =  useState(0); 
-  const [page,setPage] =  useState(1); 
+  const navigate = useNavigate();
+  const navigatetoUpdate = ()=>{
+    navigate('/update')
+  }
+  const [firstIndex,setFirstIndex] =  useState<number>(0); 
+  const [page,setPage] =  useState<number>(1); 
   // const [lastIndex,setLastIndex] =  useState(0); 
 
   const increaseIndex =() =>{
@@ -47,17 +56,10 @@ const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId}: IUpdateUser
   //   dispatch(deleteUserAction(id))
   // }
 
-  const deleteUser = async (id:string) => {
-    const res: Response = await fetch(`http://localhost:8080/user?id=${id}`, {
-      method:'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-
-      }
-    })
-    const result = await res.json();
-    console.log(result);
-  }
+  // const deleteUser = async (id:string) => {
+  //   const res: Response = await deleteUserAPI(id);
+  //   console.log(res);
+  // }
 
 
   return (
@@ -65,6 +67,11 @@ const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId}: IUpdateUser
     
       {/* <button onClick={createTodoActionFunc}>Click</button> */}
 
+      <div className='crm-header'>
+        <h2>Your CRM</h2>
+        <NewUser setNewUserModalFunc={setNewUserModalFunc}/>
+      </div>
+      
       <table className="table">
             <thead>
               <tr>
@@ -86,7 +93,7 @@ const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId}: IUpdateUser
                 <td><span className='text'>{user.phone}</span></td>
                 <td><span className='text'>{user.email}</span></td>
                 <td>
-                  <button onClick={()=>{setUpdateUSerModal(true);setUpdateSelectedId(user.id)}} type="button" className="btn btn-warning">Update</button>
+                  <button onClick={()=>{setUpdateUSerModal(true);setUpdateSelectedId(user.id);navigatetoUpdate()}} type="button" className="btn btn-warning">Update</button>
                   <button onClick={() => deleteUser(user.id)} type="button" className="btn btn-danger">Delete</button>
                 </td>
                 

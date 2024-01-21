@@ -1,8 +1,16 @@
-import { ICreateUserAction, IDeleteUserAction } from './User.interface'
+import { ICreateUserAction, IDeleteUserAction, ISetDefaultUserAction, } from './User.interface'
 import { USER_ACTION } from '../../const/action'
 import { IUser } from '../../model'
 
-const {CREATE_USER,DELETE_USER,UPDATE_USER} = USER_ACTION
+const {CREATE_USER,DELETE_USER,UPDATE_USER,SET_DEFAULT_USER} = USER_ACTION
+
+
+// export const setDefaultUserAction =(userlist:IUser[]):ISetDefaultUserAction => {
+//  return {
+//   type:SET_DEFAULT_USER,
+//   payload:userlist
+//  }
+// }
 
 export const createUserAction =(userinfo:IUser):ICreateUserAction => {
   return {

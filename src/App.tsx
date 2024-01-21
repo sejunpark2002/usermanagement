@@ -7,6 +7,14 @@ import { useState,useEffect } from 'react'
 import 'App.css'
 import { IUser } from 'model'
 import { getAllUsersAPI } from 'api/user'
+import { splitArray } from 'util/splitarray'
+import { mockUserList } from 'mock/user'
+import { Container, Row, Col } from 'react-bootstrap';
+import NewUser from 'component/NewUser'
+import { Route, Routes } from 'react-router-dom';
+import { createUserAction } from 'redux/user/User'
+import { Dispatch } from '@reduxjs/toolkit'
+import { useAppDispatch } from './store';
 
 // `import TempComp from 'component/TempComp'`
 
@@ -21,7 +29,7 @@ export interface IResponseTypeWithResult extends IResponseType {
 
 
 const App = () => {
-
+  const dispatch = useAppDispatch();
   const [userlist,setUserList] =  useState <IUser[]>
 ([]);
 
@@ -42,7 +50,11 @@ useEffect(() => {
   const getAllUsers = async () => {
     console.log('Get All Todo - Frontend')
     const result: IResponseTypeWithResult = await getAllUsersAPI();
+    console.log(result)
     setUserList(result.result);
+    // dispatch(setDefaultUserAction(userlist))
+    
+
   }
 
   getAllUsers();
@@ -65,20 +77,30 @@ const [updateSelectedId, setUpdateSelectedId ] = useState('');
   }
 
   return (
-    <div className="App">
-      <Header setNewUserModalFunc={setNewUserModalFunc}/>
-      <ShowTodo userlist={userlist} setUpdateUSerModal={setUpdateUSerModal} setUpdateSelectedId={setUpdateSelectedId} />
-      {newUserModal &&  <CreateUser setNewUserModalFunc={setNewUserModalFunc}  />}
-      {updateUserModal &&  <UpadateUser setUserListFunc={setUserListFunc} updateSelectedId={updateSelectedId}/>}
-     
-     
-
-   
-
-      {modalToggle && <div>Modal</div>}
-      {modalToggle && <div>Modal</div>}
-      {/* <TempComp /> */}
+    <div className='App'>
+        <Header setNewUserModalFunc={setNewUserModalFunc}/>
+        <Container fluid>
+          <Row>
+            <Col className='left-col' lg={1} xl={1} xxl={1} >
+              <div>User</div>
+            </Col>
+            <Col lg={11} xl={11} xxl={11} className='crm-body' >
+            
+            <div className='crm-user'>
+              <Routes>
+                <Route path={'/'} element={<ShowTodo userlist={userlist} setNewUserModalFunc={setNewUserModalFunc} setUpdateUSerModal={setUpdateUSerModal} setUpdateSelectedId={setUpdateSelectedId} />} />
+                <Route path={'/create'} element={  <CreateUser setNewUserModalFunc={setNewUserModalFunc}  /> }></Route>
+                <Route path={'/update'} element={  <UpadateUser setUserListFunc={setUserListFunc} updateSelectedId={updateSelectedId}/> }></Route>
+              </Routes>
+                
+            </div>
+            </Col>
+          </Row>
+        </Container>
+        <footer>aaa</footer>
     </div>
+   
+    
   )
 }
 

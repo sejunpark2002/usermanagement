@@ -6,6 +6,8 @@ import { useAppDispatch } from 'store';
 import 'App.css';
 import { getAllUsersAPI } from 'api/user';
 import { IResponseTypeWithResult } from 'App';
+import { useNavigate, Link } from 'react-router-dom'
+import Button from 'react-bootstrap/Button';
 
 interface IUpdateUserProps {
   updateSelectedId: string;
@@ -14,6 +16,10 @@ interface IUpdateUserProps {
 
 const UpadateUser = ({setUserListFunc, updateSelectedId}: IUpdateUserProps) => {
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+      const navigatetoMain = ()=>{
+              navigate('/')
+        }
   const [userUpdate,setUserUpadate] = useState<Partial<IUser>>({
     name:'',
     phone:'',
@@ -27,6 +33,8 @@ const UpadateUser = ({setUserListFunc, updateSelectedId}: IUpdateUserProps) => {
   }
 
   const updateUser = async () =>{
+
+    
 
     const updatedUser:Partial<IUser> = {
      id:updateSelectedId ,
@@ -63,8 +71,9 @@ const UpadateUser = ({setUserListFunc, updateSelectedId}: IUpdateUserProps) => {
    
 
     <>
-    
-      <div>Update User</div>
+     <div><Button onClick={navigatetoMain} size="sm" active>Return to main</Button></div>
+        
+      <h4>Update User</h4>
       <div>Name</div>
       <input autoComplete='off' type="text" name='name' value={userUpdate.name} onChange={changeUserUpdate} />
       <div>Phone Number</div>

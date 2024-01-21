@@ -8,9 +8,9 @@ export interface IHeaderProps {
 const Header = ({setNewUserModalFunc}: IHeaderProps) => {
   return (
     <>
-    <div className="text-bg-primary p-3 header" >
-      <span >User Management</span>
-      <button onClick={setNewUserModalFunc}type="button" className="btn btn-light">Add New User</button>
+    <div className="header" >
+      <h2 >User Management</h2>
+      {/* <button onClick={setNewUserModalFunc}type="button" className="btn btn-light">Add New User</button> */}
     </div>
     
     </>

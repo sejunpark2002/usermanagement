@@ -7,17 +7,26 @@ import { IResponseTypeWithResult} from "../App";
 //   return await res.json();
 // }
 
+// const API_ADDRESS = process.env.REACT_APP_ENV === 'dev' ? 'http://localhost:8080': '실제사이트'
+// https://sejunStudentProject.ca;
+
+const API_ADDRESS ='http://localhost:8080'
+const headers = {
+   'Content-Type': 'application/json',
+}
+
 export const getAllUsersAPI = async (): Promise<IResponseTypeWithResult> => {
-  // console.log(process.env.REACT_APP_API_ADDRESS)
-  console.log(process.env.REACT_APP_ENV);
-  let api_address = '';
-  if(process.env.REACT_APP_ENV === 'dev') {
-    api_address = process.env.REACT_APP_API_ADDRESS_DEV as string;
-  } else {
-    api_address = process.env.REACT_APP_API_ADDRESS_PROD as string;
-  }
-  const res: Response = await fetch(`${api_address}/user`, {
+  const res: Response = await fetch(`${API_ADDRESS}/user`, {
     method: 'GET',
+    headers: headers
   });
+  return await res.json();
+}
+
+export const deleteUserAPI = async (id:string) => {
+  const res: Response = await fetch(`${API_ADDRESS}/user?id=${id}`, {
+    method:'DELETE',
+    headers
+  })
   return await res.json();
 }

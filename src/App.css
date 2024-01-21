@@ -3,14 +3,16 @@
 }
 
 .header {
-  display: flex;
-  justify-content: space-around;
+  text-align: center;
+  padding: 20px 10px 20px 10px;
+  border-bottom: 1px solid #EDECEE;
 }
 
 .App {
  max-width: 1980px;
- text-align: center;
  margin: 0 auto;
+ /* text-align: center;
+ margin: 0 auto; */
 }
 
 .a {
@@ -19,4 +21,27 @@
 
 .b {
   color: blue;
+}
+
+.left-col {
+
+ border-right: 1px solid #EDECEE;
+ height: 100vh;
+
+}
+
+.crm-header {
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0 50px 0;
+}
+
+.crm-body {
+  background-color: #F9F9FA;
+}
+
+
+
+.btn-color {
+  background-color: #E0D7FC;
 }

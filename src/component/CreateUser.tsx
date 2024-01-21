@@ -4,7 +4,10 @@ import { IUser } from '../model'
 import { nanoid } from 'nanoid';
 import { useAppDispatch } from '../store';
 import { createUserAction } from '../redux/user/User';
+import { useNavigate, Link } from 'react-router-dom'
 import 'App.css';
+import Button from 'react-bootstrap/Button';
+
 
 export interface ICreateUser {
   setNewUserModalFunc: () => void;
@@ -25,7 +28,13 @@ const changeUserInfo =(e:React.ChangeEvent<HTMLInputElement>) => {
   setUserInfo({...userInfo,[name]:value })
 }
 
+const navigate = useNavigate();
+const navigatetoMain = ()=>{
+  navigate('/')
+}
+
 const createUser = async () =>{
+
 
  const newUser:IUser = {
   id: nanoid(),
@@ -52,13 +61,15 @@ const validateUserInput =() => {
     return alert('Please Type User Info')
   }
   createUser()
-  setNewUserModalFunc()
+  // dispatch(createUserAction(userInfo))
+
+  navigatetoMain()
 }
 
   return (
     <>
-      
-        <div>Creating a New User</div>
+        <span><Button onClick={navigatetoMain} size="sm" active>Return to main</Button></span>
+        <h4>Creating a New User</h4>
         <div>Name</div>
         <input type="text"  name="name" value={userInfo.name} onChange={changeUserInfo} />
         <div>Phone</div>
