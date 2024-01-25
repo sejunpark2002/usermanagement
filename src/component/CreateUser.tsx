@@ -9,11 +9,8 @@ import 'App.css';
 import Button from 'react-bootstrap/Button';
 
 
-export interface ICreateUser {
-  setNewUserModalFunc: () => void;
-}
 
-const CreateUser = ({setNewUserModalFunc}: ICreateUser) => {
+const CreateUser = () => {
 const dispatch = useAppDispatch();
 
 const [userInfo,setUserInfo] = useState<Partial<IUser>> ({

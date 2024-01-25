@@ -8,11 +8,14 @@ import { deleteUserAPI } from 'api/user';
 import deleteUser from './DeleteUser';
 import NewUser from './NewUser';
 import { useNavigate, Link } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare,faTrashCan } from '@fortawesome/free-solid-svg-icons'
+
+
+
 
 export interface IUpdateUserModalProps {
-  setUpdateUSerModal: (value: boolean) => void;
   setUpdateSelectedId: (value: string) => void;
-  setNewUserModalFunc: () => void;
   userlist:IUser[];  // Assuming it's a function that takes a boolean argument
 }
 
@@ -22,7 +25,7 @@ export interface IUpdateUserIdProps {
 
 
 // React.FC<IUpdateUserModalProps>
-const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId,setNewUserModalFunc}: IUpdateUserModalProps) => {
+const ShowTodo = ({userlist,setUpdateSelectedId}: IUpdateUserModalProps) => {
 
   const navigate = useNavigate();
   const navigatetoUpdate = ()=>{
@@ -69,7 +72,7 @@ const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId,setNewUserMod
 
       <div className='crm-header'>
         <h2>Your CRM</h2>
-        <NewUser setNewUserModalFunc={setNewUserModalFunc}/>
+        <NewUser/>
       </div>
       
       <table className="table">
@@ -93,8 +96,9 @@ const ShowTodo = ({userlist,setUpdateUSerModal,setUpdateSelectedId,setNewUserMod
                 <td><span className='text'>{user.phone}</span></td>
                 <td><span className='text'>{user.email}</span></td>
                 <td>
-                  <button onClick={()=>{setUpdateUSerModal(true);setUpdateSelectedId(user.id);navigatetoUpdate()}} type="button" className="btn btn-warning">Update</button>
-                  <button onClick={() => deleteUser(user.id)} type="button" className="btn btn-danger">Delete</button>
+                  <button onClick={()=>{setUpdateSelectedId(user.id);navigatetoUpdate()}} type="button" className='btn'  ><FontAwesomeIcon className='icon' icon={faPenToSquare} /></button>
+                  <button onClick={() => deleteUser(user.id)} type="button" className='btn' ><FontAwesomeIcon className='icon' icon={faTrashCan} /></button>
+                
                 </td>
                 
               </tr>

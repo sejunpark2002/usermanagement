@@ -8,7 +8,7 @@ export interface IHeaderProps {
 }
 
 
-const NewUser = ({setNewUserModalFunc}: IHeaderProps) => {
+const NewUser = () => {
 
   const navigate = useNavigate();
   const navigatetoCreate = ()=>{
@@ -18,7 +18,7 @@ const NewUser = ({setNewUserModalFunc}: IHeaderProps) => {
   return (
     <>
     
-    <Button onClick={()=> {setNewUserModalFunc();navigatetoCreate()}} className="btn-color" variant="primary" size="lg" active>Add New User</Button>
+    <Button onClick={()=> {navigatetoCreate()}} className="btn-color" variant="primary" size="lg" active>Add New User</Button>
       {/* <button onClick={setNewUserModalFunc}type="button" className="btn-color">Add New User</button> */}
     
     

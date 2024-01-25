@@ -3,9 +3,30 @@
 }
 
 .header {
-  text-align: center;
+  display:flex;
+  justify-content: space-around;
   padding: 20px 10px 20px 10px;
-  border-bottom: 1px solid #EDECEE;
+  
+  background-color: #51438F;
+}
+
+.header-font {
+  color: white;
+}
+
+/* form {
+  width: 600px;
+  margin: 100px auto; 
+} */
+.search-bar {
+  width: 400px;
+  height: 40px;
+  font-size: 16px;
+  padding: 0px 20px 0px 40px;
+ 
+  outline: none;
+
+/* background: url('Search.png') 7px center no-repeat; */
 }
 
 .App {
@@ -27,6 +48,7 @@
 
  border-right: 1px solid #EDECEE;
  height: 100vh;
+ background-color: #6F5CC3;
 
 }
 
@@ -43,5 +65,8 @@
 
 
 .btn-color {
-  background-color: #E0D7FC;
+  background-color: #6F5CC4 !important;
+}
+.icon {
+  color:#6F5CC4 ;
 }

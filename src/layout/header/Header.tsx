@@ -1,15 +1,15 @@
 import React from 'react'
 import 'App.css';
 
-export interface IHeaderProps {
-  setNewUserModalFunc: () => void; // Assuming it's a function that takes a boolean argument
-}
 
-const Header = ({setNewUserModalFunc}: IHeaderProps) => {
+const Header = () => {
   return (
     <>
     <div className="header" >
-      <h2 >User Management</h2>
+      <h2 className='header-font' >User Management</h2>
+      <form action="#">
+      <input className="search-bar" type="search" placeholder="Seach..."/>
+      </form>
       {/* <button onClick={setNewUserModalFunc}type="button" className="btn btn-light">Add New User</button> */}
     </div>
     

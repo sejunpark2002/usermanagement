@@ -66,30 +66,25 @@ console.log('1')
 // [state] => Component가 Mount 됬을 때 한번 실행 + state가 바꼈을 때 실행
 // [state, state]
 
-const [newUserModal, setNewUserModal] = useState(false);
-const [updateUserModal, setUpdateUSerModal] = useState(false);
+
 const [updateSelectedId, setUpdateSelectedId ] = useState('');
 
-  const [modalToggle, setModalToggle] = useState(false);
 
-  const setNewUserModalFunc = () => {
-    setNewUserModal(!newUserModal);
-  }
 
   return (
     <div className='App'>
-        <Header setNewUserModalFunc={setNewUserModalFunc}/>
+        <Header/>
         <Container fluid>
           <Row>
-            <Col className='left-col' lg={1} xl={1} xxl={1} >
+            <Col className='left-col' lg={2} xl={2} xxl={2} >
               <div>User</div>
             </Col>
-            <Col lg={11} xl={11} xxl={11} className='crm-body' >
+            <Col lg={10} xl={10} xxl={10} className='crm-body' >
             
             <div className='crm-user'>
               <Routes>
-                <Route path={'/'} element={<ShowTodo userlist={userlist} setNewUserModalFunc={setNewUserModalFunc} setUpdateUSerModal={setUpdateUSerModal} setUpdateSelectedId={setUpdateSelectedId} />} />
-                <Route path={'/create'} element={  <CreateUser setNewUserModalFunc={setNewUserModalFunc}  /> }></Route>
+                <Route path={'/'} element={<ShowTodo userlist={userlist}  setUpdateSelectedId={setUpdateSelectedId} />} />
+                <Route path={'/create'} element={  <CreateUser/> }></Route>
                 <Route path={'/update'} element={  <UpadateUser setUserListFunc={setUserListFunc} updateSelectedId={updateSelectedId}/> }></Route>
               </Routes>
                 
