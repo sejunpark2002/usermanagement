@@ -10,7 +10,8 @@ import NewUser from './NewUser';
 import { useNavigate, Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare,faTrashCan } from '@fortawesome/free-solid-svg-icons'
-
+import { splitArray } from 'util/splitarray';
+import Pagination from './Pagination';
 
 
 
@@ -24,46 +25,22 @@ export interface IUpdateUserIdProps {
 }
 
 
+
 // React.FC<IUpdateUserModalProps>
 const ShowTodo = ({userlist,setUpdateSelectedId}: IUpdateUserModalProps) => {
+
+  
+  const [pageIndex,setPageIndex] =  useState<number>(0); 
+
 
   const navigate = useNavigate();
   const navigatetoUpdate = ()=>{
     navigate('/update')
   }
-  const [firstIndex,setFirstIndex] =  useState<number>(0); 
-  const [page,setPage] =  useState<number>(1); 
-  // const [lastIndex,setLastIndex] =  useState(0); 
 
-  const increaseIndex =() =>{
-    if(firstIndex+3 < userlist.length-1) {
-      setFirstIndex(firstIndex+3)
-      setPage(page+1)
-    }
-    console.log(userlist.length)
-  
-  }
-
-  const decreaseIndex =() =>{
-    if(firstIndex > 0 ) {
-      setFirstIndex(firstIndex-3)
-      setPage(page-1)
-    } 
-
-  }
-  // const { userlist } = useAppSelector((state) => state.userReducer);
-  // const dispatch = useAppDispatch();
-
-  // const deleteUserFunc =(id:string) =>{
-  //   // const index = userlist.findIndex((arr)=>arr.id === id)
-  //   dispatch(deleteUserAction(id))
-  // }
-
-  // const deleteUser = async (id:string) => {
-  //   const res: Response = await deleteUserAPI(id);
-  //   console.log(res);
-  // }
-
+  const pageSize = 10; 
+  const newArray =splitArray(userlist,pageSize);
+ 
 
   return (
     <>
@@ -78,40 +55,41 @@ const ShowTodo = ({userlist,setUpdateSelectedId}: IUpdateUserModalProps) => {
       <table className="table">
             <thead>
               <tr>
-                <th scope="col">#</th>
+               
                 <th scope="col">Name</th>
                 <th scope="col">Phone Number</th>
                 <th scope="col">Email</th>
                 <th scope="col">Action</th>
               </tr>
             </thead>
-            {userlist.slice(firstIndex,firstIndex+3).map((user: IUser, index) => {
+            { 
+
+            newArray[pageIndex]?.map((user: IUser, index) => {
+              // {userlist.slice(firstIndex,firstIndex+3).map((user: IUser, index) => {
         return (
           // index < 5 &&
           // <div key={user.id}>
-           <tbody key={user.id}>
-              <tr>
-                <th scope="row">{index+1}</th>
-                <td> <span className='text'>{user.name}</span></td>
-                <td><span className='text'>{user.phone}</span></td>
-                <td><span className='text'>{user.email}</span></td>
-                <td>
-                  <button onClick={()=>{setUpdateSelectedId(user.id);navigatetoUpdate()}} type="button" className='btn'  ><FontAwesomeIcon className='icon' icon={faPenToSquare} /></button>
-                  <button onClick={() => deleteUser(user.id)} type="button" className='btn' ><FontAwesomeIcon className='icon' icon={faTrashCan} /></button>
-                
-                </td>
-                
-              </tr>
-             
-            </tbody>
-          
-          // </div>
-        );
+                  <tbody key={user.id}>
+                      <tr>
+                        
+                        <td> <span className='text'>{user.name}</span></td>
+                        <td><span className='text'>{user.phone}</span></td>
+                        <td><span className='text'>{user.email}</span></td>
+                        <td>
+                          <button onClick={()=>{setUpdateSelectedId(user.id);navigatetoUpdate()}} type="button" className='btn'  ><FontAwesomeIcon className='icon' icon={faPenToSquare} /></button>
+                          <button onClick={() => deleteUser(user.id)} type="button" className='btn' ><FontAwesomeIcon className='icon' icon={faTrashCan} /></button>
+                        </td>
+                      </tr>
+                    </tbody>
+                );
       })}
-    </table>
-    <button onClick={decreaseIndex} disabled={(firstIndex === 0) && true}>Previous</button>
-    <span>{page}</span>
-    <button onClick={increaseIndex} disabled={(firstIndex+3 > userlist.length-1) && true}>Next</button>
+      </table>
+      
+      <Pagination userlist={userlist} setPageIndex={setPageIndex} pageIndex={pageIndex} />
+
+      {/* <button onClick={decreaseIndex} disabled={(firstIndex === 0) && true}>Previous</button>
+      <span>{page}</span>
+      <button onClick={increaseIndex} disabled={(newArray[firstIndex]?.length < pageSize) && true}>Next</button> */}
 
       {/* {userlist.map((user: IUser) => {
         return (

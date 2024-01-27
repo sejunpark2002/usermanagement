@@ -7,6 +7,8 @@ import { createUserAction } from '../redux/user/User';
 import { useNavigate, Link } from 'react-router-dom'
 import 'App.css';
 import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 
 
 
@@ -65,15 +67,26 @@ const validateUserInput =() => {
 
   return (
     <>
-        <span><Button onClick={navigatetoMain} size="sm" active>Return to main</Button></span>
-        <h4>Creating a New User</h4>
-        <div>Name</div>
-        <input type="text"  name="name" value={userInfo.name} onChange={changeUserInfo} />
-        <div>Phone</div>
-        <input type="text" name="phone" value={userInfo.phone} onChange={changeUserInfo} />
-        <div>Email</div>
-        <input type="text" name="email" value={userInfo.email} onChange={changeUserInfo} />
-        <button onClick={validateUserInput}>Submit</button>
+    
+        
+        <h4>
+            <button onClick={navigatetoMain} className='btn'><FontAwesomeIcon className='icon' icon={faArrowLeft} /></button>
+            <span>Create a New User</span>
+        </h4>
+        
+        <div>
+          <div>Name</div>
+          <input type="text"  name="name" value={userInfo.name} onChange={changeUserInfo} />
+          <div>Phone</div>
+          <input type="text" name="phone" value={userInfo.phone} onChange={changeUserInfo} />
+          <div>Email</div>
+          <input type="text" name="email" value={userInfo.email} onChange={changeUserInfo} />
+          <div className='modal-btn'>
+           <Button onClick={()=> {validateUserInput()}} className="btn-color" variant="primary" size="sm" active>Create</Button>
+          </div>
+          
+        </div>
+        
       
      
     </>
@@ -81,3 +94,4 @@ const validateUserInput =() => {
 }
 
 export default CreateUser
+

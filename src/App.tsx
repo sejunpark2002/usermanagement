@@ -53,14 +53,10 @@ useEffect(() => {
     console.log(result)
     setUserList(result.result);
     // dispatch(setDefaultUserAction(userlist))
-    
-
   }
-
   getAllUsers();
-}, []);
+}, [userlist]);
 
-console.log('1')
 
 // [] => Component가 Mount 됬을 때 단 한번만 실행
 // [state] => Component가 Mount 됬을 때 한번 실행 + state가 바꼈을 때 실행
@@ -77,7 +73,7 @@ const [updateSelectedId, setUpdateSelectedId ] = useState('');
         <Container fluid>
           <Row>
             <Col className='left-col' lg={2} xl={2} xxl={2} >
-              <div>User</div>
+             
             </Col>
             <Col lg={10} xl={10} xxl={10} className='crm-body' >
             
@@ -92,7 +88,7 @@ const [updateSelectedId, setUpdateSelectedId ] = useState('');
             </Col>
           </Row>
         </Container>
-        <footer>aaa</footer>
+        <footer>© 2024 Sejun Park</footer>
     </div>
    
     

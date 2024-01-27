@@ -8,6 +8,10 @@ import { getAllUsersAPI } from 'api/user';
 import { IResponseTypeWithResult } from 'App';
 import { useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+
+
 
 interface IUpdateUserProps {
   updateSelectedId: string;
@@ -63,6 +67,7 @@ const UpadateUser = ({setUserListFunc, updateSelectedId}: IUpdateUserProps) => {
       return alert('Please Type User Info')
     }
     updateUser()
+    navigatetoMain()
     
   }
 
@@ -71,16 +76,21 @@ const UpadateUser = ({setUserListFunc, updateSelectedId}: IUpdateUserProps) => {
    
 
     <>
-     <div><Button onClick={navigatetoMain} size="sm" active>Return to main</Button></div>
-        
-      <h4>Update User</h4>
+       <h4>
+            <button onClick={navigatetoMain} className='btn'><FontAwesomeIcon className='icon' icon={faArrowLeft} /></button>
+            <span>Update User</span>
+        </h4>
+      
       <div>Name</div>
       <input autoComplete='off' type="text" name='name' value={userUpdate.name} onChange={changeUserUpdate} />
       <div>Phone Number</div>
       <input type="text" name='phone' value={userUpdate.phone} onChange={changeUserUpdate} />
       <div>Email</div>
       <input type="text" name='email' value={userUpdate.email} onChange={changeUserUpdate} />
-      <button onClick={validateUserInput}>Update</button>
+      
+      <div className='modal-btn'>
+           <Button onClick={()=> {validateUserInput()}} className="btn-color" variant="primary" size="sm" active>Update</Button>
+      </div>
     
     
    

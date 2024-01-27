@@ -70,3 +70,16 @@
 .icon {
   color:#6F5CC4 ;
 }
+
+.page-number {
+  color:#6F5CC4 ;
+  padding: 0 20px;
+} 
+
+.modal-btn {
+  margin-top: 20px;
+}
+
+h4 {
+  padding-top: 50px;
+}

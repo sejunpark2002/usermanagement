@@ -24,9 +24,43 @@ This project implements the Front-End for a simple usermanagement web applicatio
 ## Problems
 - Pagination
 - After adding a new user re-rendering is not happening
+- Adding a new user
+- Deleteing a selected user
+- Update a selected user information
 
 ## Solution
-- 
+#### 1.Pagination
+- First, the splitArray function was used to split and create a new array with desired row Count
 
-## 질문
-- 
+`const splitArray =(userList:IUser[], rowCount:number):IUser[][] => { const tempUserList: IUser[] = [...userlist]; const newArray:IUser[][] =[]; while ...  }`
+- Second, set useState of pageIndex vairables
+  `const [pageIndex,setPageIndex] =  useState<number>(0);` 
+
+- Thrid, create buttons to modify pageIndex 
+
+#### 2.After adding a new user re-rendering is not happening
+- Add dependency, userlist on the useEffect hook
+
+#### 3.Adding,deleting and updating a new user
+##### Adding
+- Using Fetch(), call API using the post method to pass a new user object through body to the backend server
+##### Deleting
+- Using Fetch(), call API using the delete method to pass a new user object through query to the backend server
+##### Updating
+- Using Fetch(), call API using the put method to pass a new user object through body to the backend server
+
+
+## What to improve
+- Add Redux (for learning purpose)
+- Responsive (mobile-friendly)
+- Add test (optional)
+
+## Question 
+- Type of functions of userState when passed on props
+`interface IPaginationProps {
+  userlist: IUser[];
+  setPageIndex: React.Dispatch<React.SetStateAction<number>>;
+  pageIndex: number;
+}` 
+
+- Adding dependency in the useEffect hook is good practice to update view in realtime?
