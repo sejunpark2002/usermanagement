@@ -10,12 +10,14 @@ import { useNavigate, Link } from 'react-router-dom'
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import { PAGE_SIZE } from 'const/general';
+import { splitArray } from 'util/splitarray';
 
 
 
 interface IUpdateUserProps {
   updateSelectedId: string;
-  setUserListFunc: (userlist:IUser[]) => void;
+  setUserListFunc: (userlist:IUser[][]) => void;
 }
 
 const UpadateUser = ({setUserListFunc, updateSelectedId}: IUpdateUserProps) => {
@@ -56,8 +58,7 @@ const UpadateUser = ({setUserListFunc, updateSelectedId}: IUpdateUserProps) => {
     })
 
     const getAllUsersResult: IResponseTypeWithResult = await getAllUsersAPI();
-    
-    setUserListFunc(getAllUsersResult.result)
+    setUserListFunc( splitArray(getAllUsersResult.result,PAGE_SIZE))
 
    }
 

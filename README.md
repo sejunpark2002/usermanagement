@@ -32,7 +32,14 @@ This project implements the Front-End for a simple usermanagement web applicatio
 #### 1.Pagination
 - First, the splitArray function was used to split and create a new array with desired row Count
 
-`const splitArray =(userList:IUser[], rowCount:number):IUser[][] => { const tempUserList: IUser[] = [...userlist]; const newArray:IUser[][] =[]; while ...  }`
+```
+const splitArray = (userList:IUser[], rowCount:number):IUser[][] => {
+  const tempUserList: IUser[] = [...userlist];
+  const newArray:IUser[][] =[];
+  while ...
+}
+```
+
 - Second, set useState of pageIndex vairables
   `const [pageIndex,setPageIndex] =  useState<number>(0);` 
 
@@ -64,3 +71,34 @@ This project implements the Front-End for a simple usermanagement web applicatio
 }` 
 
 - Adding dependency in the useEffect hook is good practice to update view in realtime?
+
+
+## # Preview
+
+![preview_1](./src/assets/image/preview_1.png)
+
+## # 프로젝트 구조
+
+```
+src
+├── api (book)
+├── assets
+├── components
+│     └── Reusable Component (ArrowButton / Book / LoadingSpinner / Title)
+├── const (constant string (action / general))
+├── layout
+│     ├── books (BookCase1 / BookCase2)
+│     ├── header
+│     └── sidebar
+├── mock
+│     ├── data (mockData (For Testing))
+│     └── store
+│           ├── createMockStore (For Testing)
+│           └── bookReducerMockData (For Testing)
+├── models
+├── redux (action / reducer)
+├── store (store configuration)
+└── util
+```
+
+hello

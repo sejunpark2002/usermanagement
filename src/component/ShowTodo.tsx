@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useMemo } from 'react'
 import { useAppDispatch,useAppSelector } from 'store'
 import { IUser } from '../model'
 import 'App.css';
@@ -12,12 +12,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPenToSquare,faTrashCan } from '@fortawesome/free-solid-svg-icons'
 import { splitArray } from 'util/splitarray';
 import Pagination from './Pagination';
-
+import { PAGE_SIZE } from 'const/general';
 
 
 export interface IUpdateUserModalProps {
   setUpdateSelectedId: (value: string) => void;
-  userlist:IUser[];  // Assuming it's a function that takes a boolean argument
+  userlist:IUser[][];  // Assuming it's a function that takes a boolean argument
 }
 
 export interface IUpdateUserIdProps {
@@ -38,10 +38,10 @@ const ShowTodo = ({userlist,setUpdateSelectedId}: IUpdateUserModalProps) => {
     navigate('/update')
   }
 
-  const pageSize = 10; 
-  const newArray =splitArray(userlist,pageSize);
+  // const newArray =  useMemo(() => {
+  //   splitArray(userlist,PAGE_SIZE);
+  // }, [userlist]);
  
-
   return (
     <>
     
@@ -64,7 +64,7 @@ const ShowTodo = ({userlist,setUpdateSelectedId}: IUpdateUserModalProps) => {
             </thead>
             { 
 
-            newArray[pageIndex]?.map((user: IUser, index) => {
+userlist[pageIndex]?.map((user: IUser, index) => {
               // {userlist.slice(firstIndex,firstIndex+3).map((user: IUser, index) => {
         return (
           // index < 5 &&

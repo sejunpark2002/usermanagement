@@ -4,10 +4,11 @@ import { useState } from 'react';
 import { splitArray } from 'util/splitarray';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faChevronLeft, faChevronRight, } from '@fortawesome/free-solid-svg-icons'
+import { PAGE_SIZE } from 'const/general';
 import 'App.css';
 
 interface IPaginationProps {
-  userlist: IUser[];
+  userlist: IUser[][];
   setPageIndex: React.Dispatch<React.SetStateAction<number>>;
   pageIndex: number;
 }
@@ -16,14 +17,12 @@ interface IPaginationProps {
 
 const Pagination = ({userlist,setPageIndex,pageIndex}: IPaginationProps) => {
 
-  const pageSize = 10
-  
   const [page,setPage] =  useState<number>(1); 
   // const [lastIndex,setLastIndex] =  useState(0); 
 
-  const newArray =splitArray(userlist,pageSize)
-  console.log("NewArray",newArray)
-  console.log("Userlist", userlist)
+  // const newArray =splitArray(userlist,PAGE_SIZE)
+  // console.log("NewArray",newArray)
+  // console.log("Userlist", userlist)
 
   // const increaseIndex =() =>{
   //   if(firstIndex+rowCount < newArray.length-1) {
@@ -57,7 +56,7 @@ const Pagination = ({userlist,setPageIndex,pageIndex}: IPaginationProps) => {
    <>
       <button onClick={decreaseIndex} disabled={(pageIndex === 0) && true} className='btn'><FontAwesomeIcon className='icon' icon={faChevronLeft} /></button>
       <span className='page-number'>{page}</span>
-      <button onClick={increaseIndex} disabled={(newArray[pageIndex]?.length < pageSize) && true} className='btn'><FontAwesomeIcon className='icon' icon={faChevronRight} /></button>
+      <button onClick={increaseIndex} disabled={(userlist[pageIndex]?.length < PAGE_SIZE) && true} className='btn'><FontAwesomeIcon className='icon' icon={faChevronRight} /></button>
 
    </>
   )

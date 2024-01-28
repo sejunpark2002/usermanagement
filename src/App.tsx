@@ -15,6 +15,7 @@ import { Route, Routes } from 'react-router-dom';
 import { createUserAction } from 'redux/user/User'
 import { Dispatch } from '@reduxjs/toolkit'
 import { useAppDispatch } from './store';
+import { PAGE_SIZE } from 'const/general'
 
 // `import TempComp from 'component/TempComp'`
 
@@ -30,7 +31,7 @@ export interface IResponseTypeWithResult extends IResponseType {
 
 const App = () => {
   const dispatch = useAppDispatch();
-  const [userlist,setUserList] =  useState <IUser[]>
+  const [userlist,setUserList] =  useState <IUser[][]>
 ([]);
 
 // const getAllUsers = async () => {
@@ -39,7 +40,7 @@ const App = () => {
 //   setUserList(result.result)
 // };
 
-const setUserListFunc = (userlist:IUser[]) => {
+const setUserListFunc = (userlist:IUser[][]) => {
   setUserList(userlist)
 };
 
@@ -51,11 +52,11 @@ useEffect(() => {
     console.log('Get All Todo - Frontend')
     const result: IResponseTypeWithResult = await getAllUsersAPI();
     console.log(result)
-    setUserList(result.result);
+    setUserList(splitArray(result.result,PAGE_SIZE))
     // dispatch(setDefaultUserAction(userlist))
   }
   getAllUsers();
-}, [userlist]);
+}, []);
 
 
 // [] => Component가 Mount 됬을 때 단 한번만 실행
@@ -72,10 +73,10 @@ const [updateSelectedId, setUpdateSelectedId ] = useState('');
         <Header/>
         <Container fluid>
           <Row>
-            <Col className='left-col' lg={2} xl={2} xxl={2} >
+            <Col className='left-col d-none d-lg-block'  lg={2} xl={2} xxl={2} >
              
             </Col>
-            <Col lg={10} xl={10} xxl={10} className='crm-body' >
+            <Col  lg={10} xl={10} xxl={10} className='crm-body' >
             
             <div className='crm-user'>
               <Routes>
